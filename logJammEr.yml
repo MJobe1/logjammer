@@ -1,0 +1,41 @@
+# LogJammEr YAML file.  All options can be editied.
+#
+# ACCOUNT New Relic account ID.
+#
+account=1779935
+#
+# APIKEY Insights API Key 
+#
+apiKey=repbGycMILzX1sdLsEECg6u3MfmhL4sn
+#
+# DEBUG Option.  Valid values are "1" to enable debugging, or 
+#       "0" to disable debugging
+#
+debug=1
+#
+# DEBUGFILE Is the full path to the Logparser error file.  This
+#           file will contain all errors, and status messages
+#
+debugfile=logJammEr-debug.log
+#
+# POLL INTERVAL Is the number of seconds the parser will wait 
+#               prior to rechecking the logfile for new data
+#
+poll_interval=2
+#
+# TESTMODE is enabled if this parameter is set to "1".  It is 
+#          disabled when the parameter is set to "0".  TESTMODE
+#          enabled means events are sent to the DEBUGFILE, not 
+#          the RPM account.  TESTMODE disabled will direct the 
+#          parsed events to the RPM account  
+testmode=1
+#
+# LOGFILE Is the full path to the logfile to be parsed
+#
+# MSGEXPS Is the list of regular expressions to be compiled and
+#         used to evaluate the data in the Logfile
+#
+logfile=/opt/newrelic/linux.messages
+logfile=/opt/newrelic/access_log/access_log
+logfile=/var/log/httpd/access_log
+msgexps=/opt/newrelic/customEvents.cfg

@@ -1,7 +1,4 @@
 # logjammer
-p.codeexample {
-    font-family: "Courier New";
-}
 New Relic
 LogJammEr is comprised of three files:
 <ul>

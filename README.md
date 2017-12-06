@@ -1,32 +1,103 @@
 # logjammer
+p.codeexample {
+    font-family: "Courier New";
+}
 New Relic
 LogJammEr is comprised of three files:
--logJammEr.pl  
--logJammEr.yml
--customEvents.cfg
-
-logJammEr.pl
+<ul>
+<li>logJammEr.pl  
+<li>logJammEr.yml
+<li>customEvents.cfg
+<ul>
+ <p>
+<p>
+<b>logJammEr.pl</b>
+<p>
 The main perl script, no modifications should be needed to this script.
-
-logJammEr.yml
-the site configuration file.  This file contains the configration options needed to integrate logfile based events into New Relic.
-The following configuration options are available:
--debug
+<p>
+<b>logJammEr.yml</b>
+<p>
+The site configuration file.  This file contains the configration options needed to integrate logfile based events into New Relic.  The following configuration options are available to be set in the configuration file:
+ <table>
+  <tr>
+  <th>Option</th>
+   <th>Description</th>
+  </tr>
+  <tr>
+   <td>
+ <b>debug</b>
+   </td>
+   <td>
  debug is used to generate verbose logging and stdout, the value is bolean.  1 is on 0 is off.
--account
+   </td>
+  </tr>
+  <tr>
+   <td>
+ <b>account</b>
+   </td>
+   <td>
  The New Relic account id to post events to
--apiKey
+   </td>
+  </tr>
+  <tr>
+   <td>
+ <b>apiKey</b>
+   </td>
+   <td>
  The Insights API key to be used for posting events.
-poll_interval
+   </td>
+  </tr>
+  <tr>
+ <td>
+   <b>poll_interval</b>
+  </td>
+   <td>
  The interval in seconds that the logfiles listed should be polled.  All logfiles are polled at the same interval.
--logfile
- Any logfiles that hould be watched are listed with a logfile parameter.  logfile=<path>/<file>
--msgexps
+   </td>
+  </tr>
+  <tr>
+   <td>
+<b>logfile</b>
+   </td>
+   <td>
+ Any logfiles that hould be watched are listed with a logfile parameter.  logfile=<i>path/file</i>
+    </td>
+    </tr>
+    <tr>
+    <td>
+ <b>msgexps</b>
+     </td>
+     <td>
  The patterns file.  Pattern records have the following format:
- eventtype=<New Relic required event type>
- pattern=<regex pattern to match>
- attributes=<parsed attributes from the record that are passed to New Relic as event attributes>
- 
- customEvents.cfg
+ <ul>
+  <li>eventtype=<i>New Relic required event type</i>
+  <li>pattern=<i>regex pattern to match</i>
+ <li>attributes=<i>parsed attributes from the record that are passed to New Relic as event attributes</i>
+  </ul>
+  </td>
+  </table>
+  <p>
+   <b>customEvents.cfg</b>
  The patterns file.
- 
+```
+    # logJammEr patterns file
+    # ----------------------------------------------------------------------------------
+    # EventType: HTTP Errors
+    # ----------------------------------------------------------------------------------
+    # Apache access log patterns
+    #
+    #   Attributes:
+    #   origin
+    #   date
+    #   time
+    #   message
+    #   httpcode
+    #   bytes
+    #
+    # Example log message:
+    # 64.242.88.10 - - [07/Mar/2004:16:47:12 -0800] "GET /robots.txt HTTP/1.1" 200 68
+    # ----------------------------------------------------------------------------------
+    eventtype=httpError303 pattern=(\d+\.\d+\.\d+\.\d+)\s*-\s*-\s*\W(\d+\/\w+\/\d+):(\d+:\d+:\d+\s-\d+)\W\s+\"(.+)\"\s+(302)\s+ (\d+) attributes=origin,date,time,message,httpcode,bytes 
+    eventtype=httpError404 pattern=(\d+\.\d+\.\d+\.\d+)\s*-\s*-\s*\W(\d+\/\w+\/\d+):(\d+:\d+:\d+\s-\d+)\W\s+\"(.+)\"\s+(404)\s+(\d+) attributes=origin,date,time,message,httpcode,bytes
+    eventtype=httpError404 pattern=(::1)\s*-\s*-\s*\W(\d+\/\w+\/\d+):(\d+:\d+:\d+\s-\d+)\W\s+\"(.+)\"\s+(404)\s+(\d+) attributes=origin,date,time,message,httpcode,bytes
+```

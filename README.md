@@ -29,3 +29,4 @@ poll_interval
  
  customEvents.cfg
  The patterns file.
+ 
